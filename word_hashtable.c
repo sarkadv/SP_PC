@@ -1,59 +1,81 @@
+#include <stdio.h>
 #include <stdlib.h>
-
-#define HASHTABLE_SIZE 1511  // velikost tabulky - prvocislo
-#define MAX_STRING_LENGTH 30   // nad 30 znaku maji jen ta nejdelsi anglicka slova
-#define MAX_FILE_COUNT 380
-
-typedef struct item{
-    char string[MAX_STRING_LENGTH];   // klic
-    int count[MAX_FILE_COUNT];      // hodnota - pole integeru, velikosti odpovida poctu trenovacich souboru, na kazdem indexu
-                    // boolean, zda se slovo v souboru vyskytlo ci ne
-    struct item *next;  // ukazatel na dalsi slovo ve zretezenem seznamu
-} word;
-
-void init_hashtable (word *hashtable) {
-    hashtable = malloc(sizeof(word) * HASHTABLE_SIZE);
-}
+#include <string.h>
+#include <math.h>
+#include "word_hashtable.h"
 
 int hash_code(char *string) {
+    int length = strlen(string);
     int code = 0;
     int i;
 
-    for(i = 0; i < MAX_STRING_LENGTH; i++){
-        if(string[i] == '\0'){
-            break;
-        }
-
-        code += (int)string[i];
+    for(i = length - 1; i >= 0; i--) {
+        code += ((int)(string[i] * pow(31, (i + 1))) % HASHTABLE_SIZE);
     }
 
     code = code % HASHTABLE_SIZE;
     return code;
 }
 
-int string_equals(char *string1, char *string2) {
-    int i = 0;
+word* insert_string_to_hashtable(word *hashtable[], char *string) {    // vlozi novy retezec do hash tabulky
+    word *item = find_by_key(hashtable, string);
+    if(item) {    // jestlize slovo uz v tabulce je, nevlozi se znovu
+        item->count++;
+    }
+    else {
+        item = malloc(sizeof(word));
+        strcpy(item->string, string);
+        item->count = 1;
 
-    while(string1[i] != '\0') {
-        if(string1[i] != string2[i]) {
-            return 0;
+        int hash_index = hash_code(string);
+
+        if(hashtable[hash_index]) { // na indexu neni NULL - uz je tam nejake slovo
+            item->next = hashtable[hash_index];
+
         }
-        i++;
+        hashtable[hash_index] = item;
     }
 
-    return 1;
+    return item;
+
 }
 
-word* find_by_key(word *hashtable, char *key) {
+word* find_by_key(word *hashtable[], char *key) {
     int index = hash_code(key);
+    word *item = hashtable[index];
 
-    do {
-        if(string_equals(hashtable[index].string, key)) {
-            return &hashtable[index];
+    while(item) {   // v pointeru je slovo
+        if(!strcmp(item->string, key)) {    // strcmp() vrati 0, jestlize se retezce rovnaji
+            return item;
         }
-    } while (hashtable[index].next);    // dokud dalsi zretezeny prvek neni null
+        item = item->next;
+    }
 
     return NULL;
+}
+
+void init_hashtable(word *hashtable[]) {
+    int i;
+
+    for(i = 0; i < HASHTABLE_SIZE; i++) {
+        hashtable[i] = NULL;
+    }
+}
+
+void print_hashtable(word *hashtable[]) {
+    int i;
+    for(i = 0; i < HASHTABLE_SIZE; i++) {
+        printf("index %d: ", i);
+
+        word *item = hashtable[i];
+        while(item) {   // dokud item neni null
+            printf("%s(%d spam %lf %d ham %lf) ", item->string, item->spam_count, item->spam_probability, item->ham_count, item->ham_probability);
+
+            item = item->next;
+        }
+
+        printf("\n");
+    }
 }
 
 

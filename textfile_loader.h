@@ -1,6 +1,8 @@
 #ifndef SP_PC_TEXTFILE_LOADER_H
 #define SP_PC_TEXTFILE_LOADER_H
 
-void load_strings_to_array(dynamic_string_array *a, char *file_name_pattern, int file_count);
+#include "word_hashtable.h"
+
+void load_strings_to_hashtable(word *hashtable[], char *file_name_pattern, int file_count);
 
 #endif //SP_PC_TEXTFILE_LOADER_H

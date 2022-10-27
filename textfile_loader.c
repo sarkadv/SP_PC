@@ -1,21 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "dynamic_string_array.h"
 #include "textfile_loader.h"
+#include "word_hashtable.h"
 
-void load_strings_to_array(dynamic_string_array *a, char *file_name_pattern, int file_count) {
+void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count) {
     int i;
     FILE *f_p;  // pointer na soubor
     char *file_name = malloc(20);
     char c; // posledni nacteny znak
     int char_count = 0; // pocet nactenych znaku v poslednim retezci
-    char *string = malloc(30);   // posledni nacteny retezec
+    char *string = malloc(MAX_STRING_LENGTH);   // posledni nacteny retezec
 
     for(i = 1; i <= file_count; i++) {
         sprintf(file_name, "%s%s%d%s", "train/", file_name_pattern, i, ".txt");
 
         f_p = fopen(file_name, "r");
+
+        word *hashtable_one_file[HASHTABLE_SIZE];       // hashtabulka pro jeden soubor
+        init_hashtable(hashtable_one_file);
 
         if(!f_p) {
             printf("cant load file");
@@ -24,9 +27,14 @@ void load_strings_to_array(dynamic_string_array *a, char *file_name_pattern, int
             while((c = fgetc(f_p)) != EOF) {
                 if(c == ' ') {
                     string[char_count] = '\0';
-                    add_to_array(a, string);
+
+                    if(!find_by_key(hashtable_one_file, string)) {   // slovo se v tomto souboru jeste nevyskytlo
+                        insert_string_to_hashtable(hashtable_one_file, string);
+                        insert_string_to_hashtable(hashtable_all_files, string);
+                    }
+
                     free(string);
-                    string = malloc(30);
+                    string = malloc(MAX_STRING_LENGTH);
                     char_count = 0;
                 }
                 else {
@@ -38,6 +46,4 @@ void load_strings_to_array(dynamic_string_array *a, char *file_name_pattern, int
     }
 
     fclose(f_p);
-
-    print_array(a);
 }
