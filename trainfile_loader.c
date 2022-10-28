@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "textfile_loader.h"
+#include "trainfile_loader.h"
 #include "word_hashtable.h"
 
 void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count) {
     int i;
-    FILE *f_p;  // pointer na soubor
+    FILE *f_p = NULL;  // pointer na soubor
     char *file_name = malloc(20);
     char c; // posledni nacteny znak
     int char_count = 0; // pocet nactenych znaku v poslednim retezci

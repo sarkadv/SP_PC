@@ -1,8 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "err.h"
-#include "textfile_loader.h"
+#include "trainfile_loader.h"
 #include "word_hashtable.h"
+#include "eval.h"
+#include "output.h"
 
 #define ARG_COUNT 8
 
@@ -118,10 +119,11 @@ int main(int argc, char *argv[]) {
 
     dictionary_size = merge_hashtables(hashtable_spam, hashtable_ham);
     compute_probabilities(hashtable_spam, dictionary_size);
-    print_hashtable(hashtable_spam);
 
     results = malloc(sizeof(char) * test_count);
-    
+    classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count, spam_file_probability, ham_file_probability);
+
+    print_results_to_file(results, test_count, test_file_name_pattern, output_file_name);
 
     return EXIT_SUCCESS;
 }

@@ -10,8 +10,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/saridvorakova/CLionProjects/SP_PC/dynamic_string_array.c" "CMakeFiles/SP_PC.dir/dynamic_string_array.c.o" "gcc" "CMakeFiles/SP_PC.dir/dynamic_string_array.c.o.d"
   "/Users/saridvorakova/CLionProjects/SP_PC/err.c" "CMakeFiles/SP_PC.dir/err.c.o" "gcc" "CMakeFiles/SP_PC.dir/err.c.o.d"
+  "/Users/saridvorakova/CLionProjects/SP_PC/eval.c" "CMakeFiles/SP_PC.dir/eval.c.o" "gcc" "CMakeFiles/SP_PC.dir/eval.c.o.d"
   "/Users/saridvorakova/CLionProjects/SP_PC/main.c" "CMakeFiles/SP_PC.dir/main.c.o" "gcc" "CMakeFiles/SP_PC.dir/main.c.o.d"
-  "/Users/saridvorakova/CLionProjects/SP_PC/textfile_loader.c" "CMakeFiles/SP_PC.dir/textfile_loader.c.o" "gcc" "CMakeFiles/SP_PC.dir/textfile_loader.c.o.d"
+  "/Users/saridvorakova/CLionProjects/SP_PC/output.c" "CMakeFiles/SP_PC.dir/output.c.o" "gcc" "CMakeFiles/SP_PC.dir/output.c.o.d"
+  "/Users/saridvorakova/CLionProjects/SP_PC/testfile_loader.c" "CMakeFiles/SP_PC.dir/testfile_loader.c.o" "gcc" "CMakeFiles/SP_PC.dir/testfile_loader.c.o.d"
+  "/Users/saridvorakova/CLionProjects/SP_PC/trainfile_loader.c" "CMakeFiles/SP_PC.dir/trainfile_loader.c.o" "gcc" "CMakeFiles/SP_PC.dir/trainfile_loader.c.o.d"
   "/Users/saridvorakova/CLionProjects/SP_PC/word_hashtable.c" "CMakeFiles/SP_PC.dir/word_hashtable.c.o" "gcc" "CMakeFiles/SP_PC.dir/word_hashtable.c.o.d"
   )
 

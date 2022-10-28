@@ -111,19 +111,19 @@ CMakeFiles/SP_PC.dir/err.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/err.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/err.c -o CMakeFiles/SP_PC.dir/err.c.s
 
-CMakeFiles/SP_PC.dir/textfile_loader.c.o: CMakeFiles/SP_PC.dir/flags.make
-CMakeFiles/SP_PC.dir/textfile_loader.c.o: ../textfile_loader.c
-CMakeFiles/SP_PC.dir/textfile_loader.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/SP_PC.dir/textfile_loader.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/textfile_loader.c.o -MF CMakeFiles/SP_PC.dir/textfile_loader.c.o.d -o CMakeFiles/SP_PC.dir/textfile_loader.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/textfile_loader.c
+CMakeFiles/SP_PC.dir/trainfile_loader.c.o: CMakeFiles/SP_PC.dir/flags.make
+CMakeFiles/SP_PC.dir/trainfile_loader.c.o: ../trainfile_loader.c
+CMakeFiles/SP_PC.dir/trainfile_loader.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/SP_PC.dir/trainfile_loader.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/trainfile_loader.c.o -MF CMakeFiles/SP_PC.dir/trainfile_loader.c.o.d -o CMakeFiles/SP_PC.dir/trainfile_loader.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/trainfile_loader.c
 
-CMakeFiles/SP_PC.dir/textfile_loader.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/textfile_loader.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/textfile_loader.c > CMakeFiles/SP_PC.dir/textfile_loader.c.i
+CMakeFiles/SP_PC.dir/trainfile_loader.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/trainfile_loader.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/trainfile_loader.c > CMakeFiles/SP_PC.dir/trainfile_loader.c.i
 
-CMakeFiles/SP_PC.dir/textfile_loader.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/textfile_loader.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/textfile_loader.c -o CMakeFiles/SP_PC.dir/textfile_loader.c.s
+CMakeFiles/SP_PC.dir/trainfile_loader.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/trainfile_loader.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/trainfile_loader.c -o CMakeFiles/SP_PC.dir/trainfile_loader.c.s
 
 CMakeFiles/SP_PC.dir/word_hashtable.c.o: CMakeFiles/SP_PC.dir/flags.make
 CMakeFiles/SP_PC.dir/word_hashtable.c.o: ../word_hashtable.c
@@ -139,13 +139,58 @@ CMakeFiles/SP_PC.dir/word_hashtable.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/word_hashtable.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/word_hashtable.c -o CMakeFiles/SP_PC.dir/word_hashtable.c.s
 
+CMakeFiles/SP_PC.dir/eval.c.o: CMakeFiles/SP_PC.dir/flags.make
+CMakeFiles/SP_PC.dir/eval.c.o: ../eval.c
+CMakeFiles/SP_PC.dir/eval.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/SP_PC.dir/eval.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/eval.c.o -MF CMakeFiles/SP_PC.dir/eval.c.o.d -o CMakeFiles/SP_PC.dir/eval.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/eval.c
+
+CMakeFiles/SP_PC.dir/eval.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/eval.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/eval.c > CMakeFiles/SP_PC.dir/eval.c.i
+
+CMakeFiles/SP_PC.dir/eval.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/eval.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/eval.c -o CMakeFiles/SP_PC.dir/eval.c.s
+
+CMakeFiles/SP_PC.dir/testfile_loader.c.o: CMakeFiles/SP_PC.dir/flags.make
+CMakeFiles/SP_PC.dir/testfile_loader.c.o: ../testfile_loader.c
+CMakeFiles/SP_PC.dir/testfile_loader.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/SP_PC.dir/testfile_loader.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/testfile_loader.c.o -MF CMakeFiles/SP_PC.dir/testfile_loader.c.o.d -o CMakeFiles/SP_PC.dir/testfile_loader.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/testfile_loader.c
+
+CMakeFiles/SP_PC.dir/testfile_loader.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/testfile_loader.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/testfile_loader.c > CMakeFiles/SP_PC.dir/testfile_loader.c.i
+
+CMakeFiles/SP_PC.dir/testfile_loader.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/testfile_loader.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/testfile_loader.c -o CMakeFiles/SP_PC.dir/testfile_loader.c.s
+
+CMakeFiles/SP_PC.dir/output.c.o: CMakeFiles/SP_PC.dir/flags.make
+CMakeFiles/SP_PC.dir/output.c.o: ../output.c
+CMakeFiles/SP_PC.dir/output.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/SP_PC.dir/output.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/output.c.o -MF CMakeFiles/SP_PC.dir/output.c.o.d -o CMakeFiles/SP_PC.dir/output.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/output.c
+
+CMakeFiles/SP_PC.dir/output.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/output.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/output.c > CMakeFiles/SP_PC.dir/output.c.i
+
+CMakeFiles/SP_PC.dir/output.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/output.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/output.c -o CMakeFiles/SP_PC.dir/output.c.s
+
 # Object files for target SP_PC
 SP_PC_OBJECTS = \
 "CMakeFiles/SP_PC.dir/main.c.o" \
 "CMakeFiles/SP_PC.dir/dynamic_string_array.c.o" \
 "CMakeFiles/SP_PC.dir/err.c.o" \
-"CMakeFiles/SP_PC.dir/textfile_loader.c.o" \
-"CMakeFiles/SP_PC.dir/word_hashtable.c.o"
+"CMakeFiles/SP_PC.dir/trainfile_loader.c.o" \
+"CMakeFiles/SP_PC.dir/word_hashtable.c.o" \
+"CMakeFiles/SP_PC.dir/eval.c.o" \
+"CMakeFiles/SP_PC.dir/testfile_loader.c.o" \
+"CMakeFiles/SP_PC.dir/output.c.o"
 
 # External object files for target SP_PC
 SP_PC_EXTERNAL_OBJECTS =
@@ -153,11 +198,14 @@ SP_PC_EXTERNAL_OBJECTS =
 SP_PC: CMakeFiles/SP_PC.dir/main.c.o
 SP_PC: CMakeFiles/SP_PC.dir/dynamic_string_array.c.o
 SP_PC: CMakeFiles/SP_PC.dir/err.c.o
-SP_PC: CMakeFiles/SP_PC.dir/textfile_loader.c.o
+SP_PC: CMakeFiles/SP_PC.dir/trainfile_loader.c.o
 SP_PC: CMakeFiles/SP_PC.dir/word_hashtable.c.o
+SP_PC: CMakeFiles/SP_PC.dir/eval.c.o
+SP_PC: CMakeFiles/SP_PC.dir/testfile_loader.c.o
+SP_PC: CMakeFiles/SP_PC.dir/output.c.o
 SP_PC: CMakeFiles/SP_PC.dir/build.make
 SP_PC: CMakeFiles/SP_PC.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable SP_PC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable SP_PC"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SP_PC.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

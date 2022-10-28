@@ -177,6 +177,30 @@ err.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/err.c.s
 .PHONY : err.c.s
 
+eval.o: eval.c.o
+.PHONY : eval.o
+
+# target to build an object file
+eval.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/eval.c.o
+.PHONY : eval.c.o
+
+eval.i: eval.c.i
+.PHONY : eval.i
+
+# target to preprocess a source file
+eval.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/eval.c.i
+.PHONY : eval.c.i
+
+eval.s: eval.c.s
+.PHONY : eval.s
+
+# target to generate assembly for a file
+eval.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/eval.c.s
+.PHONY : eval.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -201,29 +225,77 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/main.c.s
 .PHONY : main.c.s
 
-textfile_loader.o: textfile_loader.c.o
-.PHONY : textfile_loader.o
+output.o: output.c.o
+.PHONY : output.o
 
 # target to build an object file
-textfile_loader.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/textfile_loader.c.o
-.PHONY : textfile_loader.c.o
+output.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/output.c.o
+.PHONY : output.c.o
 
-textfile_loader.i: textfile_loader.c.i
-.PHONY : textfile_loader.i
+output.i: output.c.i
+.PHONY : output.i
 
 # target to preprocess a source file
-textfile_loader.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/textfile_loader.c.i
-.PHONY : textfile_loader.c.i
+output.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/output.c.i
+.PHONY : output.c.i
 
-textfile_loader.s: textfile_loader.c.s
-.PHONY : textfile_loader.s
+output.s: output.c.s
+.PHONY : output.s
 
 # target to generate assembly for a file
-textfile_loader.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/textfile_loader.c.s
-.PHONY : textfile_loader.c.s
+output.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/output.c.s
+.PHONY : output.c.s
+
+testfile_loader.o: testfile_loader.c.o
+.PHONY : testfile_loader.o
+
+# target to build an object file
+testfile_loader.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/testfile_loader.c.o
+.PHONY : testfile_loader.c.o
+
+testfile_loader.i: testfile_loader.c.i
+.PHONY : testfile_loader.i
+
+# target to preprocess a source file
+testfile_loader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/testfile_loader.c.i
+.PHONY : testfile_loader.c.i
+
+testfile_loader.s: testfile_loader.c.s
+.PHONY : testfile_loader.s
+
+# target to generate assembly for a file
+testfile_loader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/testfile_loader.c.s
+.PHONY : testfile_loader.c.s
+
+trainfile_loader.o: trainfile_loader.c.o
+.PHONY : trainfile_loader.o
+
+# target to build an object file
+trainfile_loader.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/trainfile_loader.c.o
+.PHONY : trainfile_loader.c.o
+
+trainfile_loader.i: trainfile_loader.c.i
+.PHONY : trainfile_loader.i
+
+# target to preprocess a source file
+trainfile_loader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/trainfile_loader.c.i
+.PHONY : trainfile_loader.c.i
+
+trainfile_loader.s: trainfile_loader.c.s
+.PHONY : trainfile_loader.s
+
+# target to generate assembly for a file
+trainfile_loader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/trainfile_loader.c.s
+.PHONY : trainfile_loader.c.s
 
 word_hashtable.o: word_hashtable.c.o
 .PHONY : word_hashtable.o
@@ -264,12 +336,21 @@ help:
 	@echo "... err.o"
 	@echo "... err.i"
 	@echo "... err.s"
+	@echo "... eval.o"
+	@echo "... eval.i"
+	@echo "... eval.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... textfile_loader.o"
-	@echo "... textfile_loader.i"
-	@echo "... textfile_loader.s"
+	@echo "... output.o"
+	@echo "... output.i"
+	@echo "... output.s"
+	@echo "... testfile_loader.o"
+	@echo "... testfile_loader.i"
+	@echo "... testfile_loader.s"
+	@echo "... trainfile_loader.o"
+	@echo "... trainfile_loader.i"
+	@echo "... trainfile_loader.s"
 	@echo "... word_hashtable.o"
 	@echo "... word_hashtable.i"
 	@echo "... word_hashtable.s"
