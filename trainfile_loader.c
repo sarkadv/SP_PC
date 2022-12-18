@@ -31,7 +31,13 @@ void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patt
             printf("cant load file");
         }
         else {
-            while((c = fgetc(f_p)) != EOF) {        /* dokud nedojdeme na konec souboru */
+            while(1) {
+                c = fgetc(f_p);     /* nacteni dalsiho znaku */
+
+                if(feof(f_p)) {     /* dosli jsme na konec souboru */
+                    break;
+                }
+
                 if(c == ' ') {      /* ukonceni slova */
                     string[char_count] = '\0';
 

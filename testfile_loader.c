@@ -21,7 +21,13 @@ void load_strings_to_array(dynamic_string_array *array, char *file_name) {
         printf("cant open file");
     }
     else {
-        while((c = fgetc(f_p)) != EOF) {    /* dokud nedojdeme na konec souboru */
+        while(1) {
+            c = fgetc(f_p);     /* nacteni dalsiho znaku */
+
+            if(feof(f_p)) {     /* dosli jsme na konec souboru */
+                break;
+            }
+
             if(c == ' ') {      /* ukonceni slova */
                 string[char_count] = '\0';
                 add_to_array(array, string);    /* pridame cele slovo do dynamickeho pole */
