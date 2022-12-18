@@ -1,15 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "output.h"
 
-print_results_to_file(char results[], int test_file_count, char *test_file_name_pattern, char *output_file_name) {
-    FILE *f_p = NULL;
+/*
+ * ------------------------------------------------------------------------------------
+ * Ulozi do vystupniho souboru vysledky ve formatu:
+ * <nazev testovaciho souboru>1.txt -> H/S
+ * <nazev testovaciho souboru>2.txt -> H/S
+ * <nazev testovaciho souboru>3.txt -> H/S
+ * ...
+ * Pismeno H odpovida Hamu, pismeno S Spamu.
+ * ------------------------------------------------------------------------------------
+ */
+void print_results_to_file(char results[], int test_file_count, char *test_file_name_pattern, char *output_file_name) {
+    FILE *f_p = NULL;   /* pointer na vystupni soubor */
     int i;
 
     f_p = fopen(output_file_name ,"w");
 
-    if(!f_p) {
+    if(!f_p) {  /* soubor se nepodarilo vytvorit */
         printf("cant create file");
     }
     else {
@@ -18,5 +27,6 @@ print_results_to_file(char results[], int test_file_count, char *test_file_name_
        }
     }
 
+    /* uzavreni souboru */
     fclose(f_p);
 }

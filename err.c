@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "err.h"
 
-int print_err_number_parameters() {
+void print_err_number_parameters() {
     printf("Wrong number of parameters!\n");
     printf("There has to be 8 parameters - name of the program and 7 others.");
     printf("Usage: \n");
