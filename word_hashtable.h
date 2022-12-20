@@ -10,7 +10,7 @@
  * ------------------------------------------------------------------------------------
  */
 typedef struct item {
-    char string[MAX_STRING_LENGTH];   /* klic */
+    char *string;   /* klic */
     int count;          /* v kolika spamovych / hamovych souborech se slovo vyskytlo (podle zrovna nacitaneho souboru) */
     int spam_count;      /* v kolika spamovych souborech se slovo vyskytlo */
     int ham_count;      /* v kolika hamovych souborech se slovo vyskytlo */
@@ -48,5 +48,12 @@ void print_hashtable(word *hashtable[]);
  * ------------------------------------------------------------------------------------
  */
 void init_hashtable(word *hashtable[]);
+
+/*
+ * ------------------------------------------------------------------------------------
+ * Uvolni pamet alokovanou pro hash tabulku.
+ * ------------------------------------------------------------------------------------
+ */
+void free_hashtable(word *hashtable[]);
 
 #endif

@@ -10,6 +10,6 @@
  * Vysledkem bude hash tabulka predana jako parametr hashtable_all_files.
  * ------------------------------------------------------------------------------------
  */
-void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count);
+void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count, int *word_count);
 
 #endif

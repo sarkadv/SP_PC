@@ -40,6 +40,7 @@ word* insert_string_to_hashtable(word *hashtable[], char *string) {
     }
     else {      /* vytvori se nova struktura word, ktera se vlozi do hash tabulky */
         item = malloc(sizeof(word));
+        item->string = malloc(MAX_STRING_LENGTH);
         strcpy(item->string, string);
         item->count = 1;
 
@@ -89,6 +90,30 @@ void init_hashtable(word *hashtable[]) {
 
     for(i = 0; i < HASHTABLE_SIZE; i++) {
         hashtable[i] = NULL;
+    }
+}
+
+/*
+ * ------------------------------------------------------------------------------------
+ * Uvolni pamet alokovanou pro hash tabulku.
+ * ------------------------------------------------------------------------------------
+ */
+void free_hashtable(word *hashtable[]) {
+    int i;
+    word *item = NULL;  /* prave vybrane slovo */
+    word *next = NULL;  /* nasledovnik slova ve zretezenem seznamu */
+
+    for(i = 0; i < HASHTABLE_SIZE; i++) {
+        item = hashtable[i];
+        while(item) {   /* dokud item ukazuje na slovo (neni NULL) */
+            next = item->next;
+
+            free(item->string);
+            free(item);
+
+            item = next;
+
+        }
     }
 }
 

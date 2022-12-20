@@ -107,6 +107,8 @@ void classify_test_files(word *dictionary[], char results[], char *file_name_pat
 
         /* klasifikace souboru - na dany index se do pole results da pismeno S nebo H */
         results[i] = classify_test_file(dictionary, array, spam_file_probability, ham_file_probability);
+
+        free_array(array);
     }
 
 }

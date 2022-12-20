@@ -10,7 +10,7 @@
  * ------------------------------------------------------------------------------------
  */
 typedef struct {
-    char (*array)[MAX_STRING_LENGTH];       /* pole ukazatelu na char = pole retezcu */
+    char (*array)[MAX_STRING_LENGTH];       /* pole textovych retezcu */
     int size;   /* kapacita pole */
     int used;   /* pocet retezcu v poli */
 } dynamic_string_array;
@@ -35,5 +35,12 @@ void add_to_array(dynamic_string_array *a, char *string);
  * ------------------------------------------------------------------------------------
  */
 void print_array(dynamic_string_array *a);
+
+/*
+ * ------------------------------------------------------------------------------------
+ * Uvolni pamet alokovanou pro dynamicke pole.
+ * ------------------------------------------------------------------------------------
+ */
+void free_array(dynamic_string_array *a);
 
 #endif
