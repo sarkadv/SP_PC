@@ -69,19 +69,19 @@ include CMakeFiles/SP_PC.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/SP_PC.dir/flags.make
 
-CMakeFiles/SP_PC.dir/main.c.o: CMakeFiles/SP_PC.dir/flags.make
-CMakeFiles/SP_PC.dir/main.c.o: ../main.c
-CMakeFiles/SP_PC.dir/main.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/SP_PC.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/main.c.o -MF CMakeFiles/SP_PC.dir/main.c.o.d -o CMakeFiles/SP_PC.dir/main.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/main.c
+CMakeFiles/SP_PC.dir/spamid.c.o: CMakeFiles/SP_PC.dir/flags.make
+CMakeFiles/SP_PC.dir/spamid.c.o: ../spamid.c
+CMakeFiles/SP_PC.dir/spamid.c.o: CMakeFiles/SP_PC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/saridvorakova/CLionProjects/SP_PC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/SP_PC.dir/spamid.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SP_PC.dir/spamid.c.o -MF CMakeFiles/SP_PC.dir/spamid.c.o.d -o CMakeFiles/SP_PC.dir/spamid.c.o -c /Users/saridvorakova/CLionProjects/SP_PC/spamid.c
 
-CMakeFiles/SP_PC.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/main.c > CMakeFiles/SP_PC.dir/main.c.i
+CMakeFiles/SP_PC.dir/spamid.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SP_PC.dir/spamid.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/saridvorakova/CLionProjects/SP_PC/spamid.c > CMakeFiles/SP_PC.dir/spamid.c.i
 
-CMakeFiles/SP_PC.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/main.c -o CMakeFiles/SP_PC.dir/main.c.s
+CMakeFiles/SP_PC.dir/spamid.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SP_PC.dir/spamid.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/saridvorakova/CLionProjects/SP_PC/spamid.c -o CMakeFiles/SP_PC.dir/spamid.c.s
 
 CMakeFiles/SP_PC.dir/dynamic_string_array.c.o: CMakeFiles/SP_PC.dir/flags.make
 CMakeFiles/SP_PC.dir/dynamic_string_array.c.o: ../dynamic_string_array.c
@@ -183,7 +183,7 @@ CMakeFiles/SP_PC.dir/output.c.s: cmake_force
 
 # Object files for target SP_PC
 SP_PC_OBJECTS = \
-"CMakeFiles/SP_PC.dir/main.c.o" \
+"CMakeFiles/SP_PC.dir/spamid.c.o" \
 "CMakeFiles/SP_PC.dir/dynamic_string_array.c.o" \
 "CMakeFiles/SP_PC.dir/err.c.o" \
 "CMakeFiles/SP_PC.dir/trainfile_loader.c.o" \
@@ -195,7 +195,7 @@ SP_PC_OBJECTS = \
 # External object files for target SP_PC
 SP_PC_EXTERNAL_OBJECTS =
 
-SP_PC: CMakeFiles/SP_PC.dir/main.c.o
+SP_PC: CMakeFiles/SP_PC.dir/spamid.c.o
 SP_PC: CMakeFiles/SP_PC.dir/dynamic_string_array.c.o
 SP_PC: CMakeFiles/SP_PC.dir/err.c.o
 SP_PC: CMakeFiles/SP_PC.dir/trainfile_loader.c.o

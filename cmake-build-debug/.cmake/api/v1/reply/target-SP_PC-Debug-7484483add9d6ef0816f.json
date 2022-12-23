@@ -121,7 +121,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.c",
+			"path" : "spamid.c",
 			"sourceGroupIndex" : 0
 		},
 		{

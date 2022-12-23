@@ -201,30 +201,6 @@ eval.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/eval.c.s
 .PHONY : eval.c.s
 
-main.o: main.c.o
-.PHONY : main.o
-
-# target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/main.c.o
-.PHONY : main.c.o
-
-main.i: main.c.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/main.c.i
-.PHONY : main.c.i
-
-main.s: main.c.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/main.c.s
-.PHONY : main.c.s
-
 output.o: output.c.o
 .PHONY : output.o
 
@@ -248,6 +224,30 @@ output.s: output.c.s
 output.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/output.c.s
 .PHONY : output.c.s
+
+spamid.o: spamid.c.o
+.PHONY : spamid.o
+
+# target to build an object file
+spamid.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/spamid.c.o
+.PHONY : spamid.c.o
+
+spamid.i: spamid.c.i
+.PHONY : spamid.i
+
+# target to preprocess a source file
+spamid.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/spamid.c.i
+.PHONY : spamid.c.i
+
+spamid.s: spamid.c.s
+.PHONY : spamid.s
+
+# target to generate assembly for a file
+spamid.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SP_PC.dir/build.make CMakeFiles/SP_PC.dir/spamid.c.s
+.PHONY : spamid.c.s
 
 testfile_loader.o: testfile_loader.c.o
 .PHONY : testfile_loader.o
@@ -339,12 +339,12 @@ help:
 	@echo "... eval.o"
 	@echo "... eval.i"
 	@echo "... eval.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... output.o"
 	@echo "... output.i"
 	@echo "... output.s"
+	@echo "... spamid.o"
+	@echo "... spamid.i"
+	@echo "... spamid.s"
 	@echo "... testfile_loader.o"
 	@echo "... testfile_loader.i"
 	@echo "... testfile_loader.s"

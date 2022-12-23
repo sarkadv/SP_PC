@@ -21,6 +21,7 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
     int char_count = 0;         /* pocet nactenych znaku v poslednim retezci */
     char *string = NULL;   /* posledni nacteny retezec */
     word *hashtable_one_file[HASHTABLE_SIZE];      /* hash tabulka pro jeden trenovaci soubor */
+    char *separator = NULL;     /* oddelovac v ceste k souboru */
 
     if(!hashtable_all_files || !file_name_pattern || file_count <= 0 || !word_count) {
         /* pointery na NULL nebo nesmyslne ciselne hodnoty */
@@ -37,9 +38,17 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
         return 0;
     }
 
+    /* oddelovac v ceste k souboru je zavisly na platforme */
+#ifdef _WIN32
+    separator = "\\";
+#else
+    separator = "/";
+#endif
+
+
     for(i = 1; i <= file_count; i++) {
         /* vytvoreni nazvu trenovaciho souboru */
-        sprintf(file_name, "%s%s%d%s", "train/", file_name_pattern, i, ".txt");
+        sprintf(file_name, "%s%s%s%d%s", "train", separator, file_name_pattern, i, ".txt");
 
         if(!init_hashtable(hashtable_one_file)) {   /* nepodarilo se nainicializovat hash tabulku */
             return 0;
@@ -55,6 +64,12 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
         else {
             while(1) {
                 c = fgetc(f_p);     /* nacteni dalsiho znaku */
+
+                if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
+                    printf("Error while reading file: %d\n", ferror(f_p));
+                    clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
+                    return 0;
+                }
 
                 if(feof(f_p)) {     /* dosli jsme na konec souboru */
                     break;

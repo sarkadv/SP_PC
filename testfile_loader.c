@@ -37,6 +37,12 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
         while(1) {
             c = fgetc(f_p);     /* nacteni dalsiho znaku */
 
+            if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
+                printf("Error while reading file: %d\n", ferror(f_p));
+                clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
+                return 0;
+            }
+
             if(feof(f_p)) {     /* dosli jsme na konec souboru */
                 break;
             }

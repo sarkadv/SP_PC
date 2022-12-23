@@ -129,11 +129,19 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
     int i;
     char file_name[TEST_FILE_NAME_LENGTH];     /* jmeno konkretniho testovaciho souboru */
     dynamic_string_array *array;    /* dynamicke pole pro slova z testovaciho souboru */
+    char *separator = NULL;     /* oddelovac v ceste k souboru */
 
     if(!dictionary || !results || !file_name_pattern || file_count <= 0 || spam_file_probability <= 0 || ham_file_probability <= 0) {
         /* pointery ukazuji na NULL nebo ciselne hodnoty jsou nesmyslne */
         return 0;
     }
+
+    /* oddelovac v ceste k souboru je zavisly na platforme */
+#ifdef _WIN32
+    separator = "\\";
+#else
+    separator = "/";
+#endif
 
     for(i = 0; i < file_count; i++) {
         array = malloc(sizeof(dynamic_string_array*));
@@ -147,7 +155,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
         }
 
         /* vytvoreni jmena konkretniho souboru */
-        sprintf(file_name, "%s%s%d%s", "test/", file_name_pattern, (i + 1), ".txt");
+        sprintf(file_name, "%s%s%s%d%s", "test", separator, file_name_pattern, (i + 1), ".txt");
 
         /* nacteni slov ze souboru do dynamickeho pole */
         if(!load_strings_to_array(array, file_name)) {
