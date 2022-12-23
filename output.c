@@ -9,7 +9,8 @@
  * <nazev testovaciho souboru>2.txt -> H/S
  * <nazev testovaciho souboru>3.txt -> H/S
  * ...
- * Pismeno H odpovida Hamu, pismeno S Spamu.
+ * Znak 'H' odpovida Hamu, znak 'S' Spamu.
+ * Soubor, ktery ma prirazeny znak '0', se nepodarilo klasfikovat a nebude vypsan.
  * ------------------------------------------------------------------------------------
  */
 void print_results_to_file(char results[], int test_file_count, char *test_file_name_pattern, char *output_file_name) {
@@ -23,7 +24,9 @@ void print_results_to_file(char results[], int test_file_count, char *test_file_
     }
     else {
        for(i = 0; i < test_file_count; i++) {
-           fprintf(f_p, "%s%d.txt\t%c\n", test_file_name_pattern, (i + 1), results[i]);
+           if(results[i] != '0') {      /* soubor se podarilo klasifikovat */
+               fprintf(f_p, "%s%d.txt\t%c\n", test_file_name_pattern, (i + 1), results[i]);
+           }
        }
     }
 

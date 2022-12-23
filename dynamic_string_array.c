@@ -6,24 +6,42 @@
 /*
  * ------------------------------------------------------------------------------------
  * Nainicializuje dynamicke pole na jeho pocatecni velikost.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void init_array(dynamic_string_array *a) {
+int init_array(dynamic_string_array *a) {
+    if(!a) {        /* pointer na dynamicke pole ma hodnotu NULL */
+        return 0;
+    }
+
     a->array = malloc(INIT_ARRAY_SIZE * sizeof(char[MAX_STRING_LENGTH]));
+
+    if(!a->array) {     /* nepodarilo se alokovat pamet */
+        return 0;
+    }
+
     a->size = INIT_ARRAY_SIZE;
     a->used = 0;
+
+    return 1;
 }
 
 /*
  * ------------------------------------------------------------------------------------
  * Prida do dynamickeho pole novy retezec.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void add_to_array(dynamic_string_array *a, char *string) {
-    if(a->size == a->used) {    /* dynamicke pole je plne, zvetsi se o konstantu INIT_ARRAY_SIZE */
-        char (*tmp)[MAX_STRING_LENGTH] = realloc(a->array,(a->size + INIT_ARRAY_SIZE) * sizeof(char[MAX_STRING_LENGTH]));
+int add_to_array(dynamic_string_array *a, char *string) {
+    char (*tmp)[MAX_STRING_LENGTH];     /* pointer na novy alokovany blok pameti */
 
-        if(tmp) {   /* tmp neni NULL - podarilo se realokovat pamet */
+    if(a->size == a->used) {    /* dynamicke pole je plne, zvetsi se o konstantu INIT_ARRAY_SIZE */
+        tmp = realloc(a->array,(a->size + INIT_ARRAY_SIZE) * sizeof(char[MAX_STRING_LENGTH]));
+
+        if(!tmp) {      /* nepodarilo se realokovat pamet */
+            return 0;
+        }
+        else {   /* tmp neni NULL - podarilo se realokovat pamet */
             a->array = tmp;
             a->size += INIT_ARRAY_SIZE;
         }
@@ -31,6 +49,8 @@ void add_to_array(dynamic_string_array *a, char *string) {
 
     strcpy(a->array[a->used], string);  /* pridani retezce do dynamickeho pole */
     a->used++;
+
+    return 1;
 }
 
 /*
@@ -39,8 +59,10 @@ void add_to_array(dynamic_string_array *a, char *string) {
  * ------------------------------------------------------------------------------------
  */
 void free_array(dynamic_string_array *a) {
-    free(a->array);
-    free(a);
+    if(a) {     /* pointer neni NULL */
+        free(a->array);
+        free(a);
+    }
 }
 
 /*

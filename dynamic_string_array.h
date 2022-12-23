@@ -18,16 +18,18 @@ typedef struct {
 /*
  * ------------------------------------------------------------------------------------
  * Nainicializuje dynamicke pole na jeho pocatecni velikost.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void init_array(dynamic_string_array *a);
+int init_array(dynamic_string_array *a);
 
 /*
  * ------------------------------------------------------------------------------------
  * Prida do dynamickeho pole novy retezec.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void add_to_array(dynamic_string_array *a, char *string);
+int add_to_array(dynamic_string_array *a, char *string);
 
 /*
  * ------------------------------------------------------------------------------------

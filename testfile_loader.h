@@ -5,8 +5,9 @@
 /*
  * ------------------------------------------------------------------------------------
  * Nacte slova z testovaciho souboru a ulozi je do dynamickeho pole.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void load_strings_to_array(dynamic_string_array *array, char *file_name);
+int load_strings_to_array(dynamic_string_array *array, char *file_name);
 
 #endif

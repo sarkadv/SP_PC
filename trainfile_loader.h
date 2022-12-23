@@ -8,8 +8,10 @@
  * ------------------------------------------------------------------------------------
  * Nacte slova z testovaciho souboru a ulozi je do hash tabulky jako struktury word.
  * Vysledkem bude hash tabulka predana jako parametr hashtable_all_files.
+ * Zaroven jsou spocitana vsechna nactena slova a tento pocet je ulozen do word_count.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count, int *word_count);
+int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_pattern, int file_count, int *word_count);
 
 #endif

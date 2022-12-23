@@ -19,7 +19,7 @@
 /*
  * ------------------------------------------------------------------------------------
  * Metoda spoji hash tabulku pro spam a ham do jedine hash tabulky.
- * Vraci pocet slov ve slovniku (spojene hash tabulce).
+ * Vraci pocet slov ve slovniku (spojene hash tabulce) / 0 v pripade neuspechu.
  * ------------------------------------------------------------------------------------
  */
 int merge_hashtables(word *hashtable_spam[], word *hashtable_ham[]) {
@@ -27,6 +27,10 @@ int merge_hashtables(word *hashtable_spam[], word *hashtable_ham[]) {
     int i;
     word *item = NULL;          /* aktualne vybrane slovo z hash tabulky */
     word *found = NULL;         /* hamove slovo nalezene ve spamove hash tabulce */
+
+    if(!hashtable_spam || !hashtable_ham) {     /* hash tabulky maji hodnotu NULL */
+        return 0;
+    }
 
     /*
      * nastaveni cetnosti spamovych slov v tabulce pro spam
@@ -75,11 +79,17 @@ int merge_hashtables(word *hashtable_spam[], word *hashtable_ham[]) {
  * ------------------------------------------------------------------------------------
  * Metoda vypocita pravdepodobnosti kazdeho slova, ze se jedna o spam nebo o ham.
  * Pravdepodobnosti jsou ukladany primo do struktury word.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void compute_probabilities(word *hashtable[], int dictionary_size, int word_count_spam, int word_count_ham) {
+int compute_probabilities(word *hashtable[], int dictionary_size, int word_count_spam, int word_count_ham) {
     int i;
     word *item = NULL;  /* prave vybrane slovo */
+
+    if(!hashtable || dictionary_size <= 0 || word_count_spam <= 0 || word_count_ham <= 0) {
+        /* hashtabulka ma hodnotu NULL, nebo ciselne argumenty maji nesmyslne hodnoty */
+        return 0;
+    }
 
     for(i = 0; i < HASHTABLE_SIZE; i++) {
         item = hashtable[i];
@@ -91,6 +101,8 @@ void compute_probabilities(word *hashtable[], int dictionary_size, int word_coun
             item = item->next;
         }
     }
+
+    return 1;
 }
 
 /*
@@ -106,7 +118,7 @@ int main(int argc, char *argv[]) {
     char *ham_train_file_name_pattern = NULL;       /* vzor pro nazev souboru s trenovacimi hamovymi emaily */
     char *test_file_name_pattern = NULL;       /* vzor pro nazev souboru s testovacimi neklasifikovanymi emaily */
     char *output_file_name = NULL;        /* nazev souboru pro vysledky */
-    char *results = NULL;               /* vysledky - pro kazdy soubor pismeno S (Spam) nebo H (Ham) */
+    char *results = NULL;               /* vysledky - pro kazdy soubor znak 'S' (Spam) nebo 'H' (Ham); '0' pri neuspechu*/
 
     int spam_count;     /* pocet trenovacich spamovych souboru */
     int ham_count;      /* pocet trenovacich hamovych souboru */
@@ -157,12 +169,25 @@ int main(int argc, char *argv[]) {
     output_file_name = argv[ARG_OUTPUT];
 
     /* inicializace a naplneni spamove hash tabulky */
-    init_hashtable(hashtable_spam);
-    load_strings_to_hashtable(hashtable_spam, spam_train_file_name_pattern, spam_count, &word_count_spam);
+    if(!init_hashtable(hashtable_spam)) {
+        print_err_init_hashtable();
+        return EXIT_FAILURE;
+    }
+
+    if(!load_strings_to_hashtable(hashtable_spam, spam_train_file_name_pattern, spam_count, &word_count_spam)) {
+        print_err_load_strings_hashtable();
+        return EXIT_FAILURE;
+    }
 
     /* inicializace a naplneni hamove hash tabulky */
-    init_hashtable(hashtable_ham);
-    load_strings_to_hashtable(hashtable_ham, ham_train_file_name_pattern, ham_count, &word_count_ham);
+    if(!init_hashtable(hashtable_ham)) {
+        print_err_init_hashtable();
+        return EXIT_FAILURE;
+    }
+    if(!load_strings_to_hashtable(hashtable_ham, ham_train_file_name_pattern, ham_count, &word_count_ham)) {
+        print_err_load_strings_hashtable();
+        return EXIT_FAILURE;
+    }
 
     /*
      * spojeni hash tabulky pro spam a hash tabulky pro ham
@@ -170,10 +195,19 @@ int main(int argc, char *argv[]) {
      */
     dictionary_size = merge_hashtables(hashtable_spam, hashtable_ham);
 
+    if(!dictionary_size) {
+        print_err_dictionary();
+        return EXIT_FAILURE;
+    }
+
     free_hashtable(hashtable_ham);
 
     /* vypocet pravdepodobnosti, zda se jedna o spam / ham pro kazde slovo ve slovniku */
-    compute_probabilities(hashtable_spam, dictionary_size, word_count_spam, word_count_ham);
+    if(!compute_probabilities(hashtable_spam, dictionary_size, word_count_spam, word_count_ham)) {
+        print_err_probabilities();
+        return EXIT_FAILURE;
+    }
+
     print_hashtable(hashtable_spam);
 
     results = malloc(sizeof(char) * test_count);
@@ -181,8 +215,13 @@ int main(int argc, char *argv[]) {
     /*
      * klasifikace testovacich souboru - rozhodnuti, zda je kazdy soubor spam nebo ham
      * vysledky jsou ukladany do pole results, kde je pro kazdy soubor pismeno S (Spam) nebo H (Ham)
+     * (v pripade neuspechu klasifikace ma soubor prirazen znak '0', to je zohledneno pri
+     * ukladani vysledku do souboru, vykonovani programu to neukonci)
      */
-    classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count, spam_file_probability, ham_file_probability);
+    if(!classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count, spam_file_probability, ham_file_probability)) {
+        print_err_classify();
+        return EXIT_FAILURE;
+    }
 
     free_hashtable(hashtable_spam);
 

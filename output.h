@@ -8,7 +8,8 @@
  * <nazev testovaciho souboru>2.txt -> H/S
  * <nazev testovaciho souboru>3.txt -> H/S
  * ...
- * Pismeno H odpovida Hamu, pismeno S Spamu.
+ * Znak 'H' odpovida Hamu, znak 'S' Spamu.
+ * Soubor, ktery ma prirazeny znak '0', se nepodarilo klasfikovat a nebude vypsan.
  * ------------------------------------------------------------------------------------
  */
 void print_results_to_file(char results[], int test_file_count, char *test_file_name_pattern, char *output_file_name);

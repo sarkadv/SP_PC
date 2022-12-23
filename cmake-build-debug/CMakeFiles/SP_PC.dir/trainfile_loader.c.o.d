@@ -80,5 +80,7 @@ CMakeFiles/SP_PC.dir/trainfile_loader.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/secure/_strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/secure/_string.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/sys/errno.h \
   /Users/saridvorakova/CLionProjects/SP_PC/trainfile_loader.h \
   /Users/saridvorakova/CLionProjects/SP_PC/word_hashtable.h

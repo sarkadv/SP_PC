@@ -7,9 +7,10 @@
 /*
  * ------------------------------------------------------------------------------------
  * Nacte slova z testovaciho souboru a ulozi je do dynamickeho pole.
+ * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-void load_strings_to_array(dynamic_string_array *array, char *file_name) {
+int load_strings_to_array(dynamic_string_array *array, char *file_name) {
     FILE *f_p = NULL;       /* pointer na soubor */
     char c;             /* posledni nacteny znak */
     int char_count = 0;     /* pocet nactenych znaku v poslednim retezci */
@@ -18,7 +19,8 @@ void load_strings_to_array(dynamic_string_array *array, char *file_name) {
     f_p = fopen(file_name, "r");
 
     if(!f_p) {      /* soubor se nepodarilo otevrit */
-        printf("cant open file");
+        printf("The file %s couldn't be opened.\n", file_name);
+        return 0;
     }
     else {
         while(1) {
@@ -30,11 +32,18 @@ void load_strings_to_array(dynamic_string_array *array, char *file_name) {
 
             if(c == ' ') {      /* ukonceni slova */
                 string[char_count] = '\0';
-                add_to_array(array, string);    /* pridame cele slovo do dynamickeho pole */
+                if(!add_to_array(array, string)) {       /* pridame cele slovo do dynamickeho pole */
+                    return 0;             /* slovo se nepodarilo pridat */
+                }
 
                 /* zacneme nacitat dalsi slovo - reset promennych */
                 free(string);
                 string = malloc(MAX_STRING_LENGTH);
+
+                if(!string) {   /* nepodarilo se alokovat pamet pro nove slovo */
+                    return 0;
+                }
+
                 char_count = 0;
             }
             else {      /* jeste jsme nedosli na konec slova */
@@ -46,4 +55,6 @@ void load_strings_to_array(dynamic_string_array *array, char *file_name) {
 
     /* uzavreni souboru */
     fclose(f_p);
+
+    return 1;
 }

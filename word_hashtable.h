@@ -23,6 +23,7 @@ typedef struct item {
  * ------------------------------------------------------------------------------------
  * Vlozi nove slovo do hash tabulky.
  * Vrati se struktura word reprezentujici dany textovy retezec (slovo).
+ * Pokud se slovo nepodarilo vlozit, vrati se NULL.
  * ------------------------------------------------------------------------------------
  */
 word* insert_string_to_hashtable(word *hashtable[], char *string);
@@ -30,7 +31,7 @@ word* insert_string_to_hashtable(word *hashtable[], char *string);
 /*
  * ------------------------------------------------------------------------------------
  * Pokusi se najit v hash tabulce slovo podle jeho klice (textovy retezec slova).
- * Vrati bud nalezene slovo (struktura word) nebo NULL.
+ * Vrati bud nalezene slovo (struktura word) nebo NULL (slovo nebylo nalezeno).
  * ------------------------------------------------------------------------------------
  */
 word* find_by_key(word *hashtable[], char *key);
@@ -44,10 +45,11 @@ void print_hashtable(word *hashtable[]);
 
 /*
  * ------------------------------------------------------------------------------------
- * Nainicializuje hash tabulku na jeji danou velikost.
+ * Nainicializuje hash tabulku na jeji danou velikost HASHTABLE_SIZE, danou konstantou.
+ * V pripade uspechu vraci 1, jinak 0.
  * ------------------------------------------------------------------------------------
  */
-void init_hashtable(word *hashtable[]);
+int init_hashtable(word *hashtable[]);
 
 /*
  * ------------------------------------------------------------------------------------

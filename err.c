@@ -24,3 +24,23 @@ void print_err_test_count() {
     printf("Wrong parameters!");
     printf("Testing file count has to be > 0.\n");
 }
+
+void print_err_dictionary() {
+    printf("Error while creating the dictionary! (function merge_hashtables() in main.c)\n");
+}
+
+void print_err_probabilities() {
+    printf("Error while counting spam and ham probabilities! (function compute_probabilities() in main.c)\n");
+}
+
+void print_err_classify() {
+    printf("Error while classifying test files! (function classify_test_files() in eval.c)\n");
+}
+
+void print_err_init_hashtable() {
+    printf("Error while initializing hashtable! (function init_hashtable() in word_hashtable.c)\n");
+}
+
+void print_err_load_strings_hashtable() {
+    printf("Error while loading strings from file to hashtable! (function load_strings_to_hashtable() in trainfile_loader.c)\n");
+}
