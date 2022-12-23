@@ -38,6 +38,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
 
                 /* zacneme nacitat dalsi slovo - reset promennych */
                 free(string);
+                string = NULL;
                 string = malloc(MAX_STRING_LENGTH);
 
                 if(!string) {   /* nepodarilo se alokovat pamet pro nove slovo */

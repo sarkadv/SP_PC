@@ -64,6 +64,7 @@ word* insert_string_to_hashtable(word *hashtable[], char *string) {
 
         if(!item->string) {     /* nepodarilo se alokovat pamet pro cast struktury */
             free(item);
+            item = NULL;
             return NULL;
         }
 
@@ -159,9 +160,11 @@ void free_hashtable(word *hashtable[]) {
 
             if(item->string) {
                 free(item->string);
+                item->string = NULL;
             }
 
             free(item);
+            item = NULL;
 
             item = next;
 

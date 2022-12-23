@@ -228,6 +228,7 @@ int main(int argc, char *argv[]) {
     /* vysledky ulozeny do textoveho souboru */
     print_results_to_file(results, test_count, test_file_name_pattern, output_file_name);
     free(results);
+    results = NULL;
 
     return EXIT_SUCCESS;
 }

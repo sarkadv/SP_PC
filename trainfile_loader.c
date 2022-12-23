@@ -80,6 +80,7 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
 
                     /* zacneme nacitat dalsi slovo - reset promennych */
                     free(string);
+                    string = NULL;
                     string = malloc(MAX_STRING_LENGTH);
                     char_count = 0;
                 }
@@ -92,7 +93,9 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
     }
 
     free(file_name);
+    file_name = NULL;
     free(string);
+    string = NULL;
 
     /* uzavreni souboru */
     errno = 0;
