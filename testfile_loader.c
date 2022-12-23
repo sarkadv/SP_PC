@@ -65,6 +65,9 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
         }
     }
 
+    free(string);
+    string = NULL;
+
     /* uzavreni souboru */
     errno = 0;
     fclose(f_p);

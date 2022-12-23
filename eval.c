@@ -62,14 +62,14 @@ char argmax(word *found_words[], int found_words_count, double spam_file_probabi
         errno = 0;  /* nutne vynulovat globalni promennou errno */
         spam_result += log10(found_words[i]->spam_probability);
         if(errno) {     /* globalni promenna errno nema hodnotu 0, tedy doslo k chybe */
-            printf("%s\n", strerror(errno));
+            printf("Error while computing the common logarithm: %s\n", strerror(errno));
             return '0';
         }
 
         errno = 0;
         ham_result += log10(found_words[i]->ham_probability);
         if(errno) {
-            printf("%s\n", strerror(errno));
+            printf("Error while computing the common logarithm: %s\n", strerror(errno));
             return '0';
         }
     }
@@ -91,13 +91,15 @@ char argmax(word *found_words[], int found_words_count, double spam_file_probabi
  * ------------------------------------------------------------------------------------
  */
 char classify_test_file(word *dictionary[], dynamic_string_array *array, double spam_file_probability, double ham_file_probability) {
-    char result;                        /* pismeno tridy (H nebo S) */
-    word *found_words[array->used];     /* slova testovaciho souboru, ktera jsou ve slovniku */
-    int found_words_count;              /* pocet slov testovaciho souboru, ktera jsou ve slovniku */
+    char result;          /* pismeno tridy (H nebo S) */
+    word **found_words;     /* slova testovaciho souboru, ktera jsou ve slovniku */
+    int found_words_count;    /* pocet slov testovaciho souboru, ktera jsou ve slovniku */
 
     if(!dictionary || !array || spam_file_probability <= 0 || ham_file_probability <= 0) {
         return '0';
     }
+
+    found_words = malloc(array->used * sizeof(word*));
 
     /* nalezeni slov testovaciho souboru, ktera jsou zaroven ve slovniku */
     found_words_count = find_dictionary_words(dictionary, array, found_words);
@@ -108,6 +110,9 @@ char classify_test_file(word *dictionary[], dynamic_string_array *array, double 
 
     /* zjisteni, zda je soubor spam nebo ham podle slov ve slovniku */
     result = argmax(found_words, found_words_count, spam_file_probability, ham_file_probability);
+
+    free(found_words);
+    found_words = NULL;
 
     return result;
 }
@@ -131,7 +136,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
     }
 
     for(i = 0; i < file_count; i++) {
-        array = malloc(sizeof(dynamic_string_array));
+        array = malloc(sizeof(dynamic_string_array*));
 
         if(!array) {
             return 0;
@@ -154,6 +159,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
         /* v pripade neuspechu je ulozeno na index i '0' */
 
         free_array(array);
+        array = NULL;
     }
 
     return 1;
