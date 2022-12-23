@@ -21,7 +21,7 @@ int find_dictionary_words(word *dictionary[], dynamic_string_array *array, word 
     int i;
     word *found = NULL;     /* nalezene slovo ve slovniku - pokud ve slovniku neni, je NULL */
 
-    if(!dictionary || !array || !found_words) {
+    if(!dictionary || !array || !found_words) {     /* pointery ukazuji na NULL */
         return -1;
     }
 
@@ -54,7 +54,8 @@ char argmax(word *found_words[], int found_words_count, double spam_file_probabi
     double ham_result = 0;      /* suma pravdepodobnosti hamu */
     int i;
 
-    if(!found_words || found_words_count <= 0 || spam_file_probability <= 0 || ham_file_probability <= 0) {
+    if(!found_words || found_words_count < 0 || spam_file_probability <= 0 || ham_file_probability <= 0) {
+        /* pointer na NULL nebo nesmyslne ciselne hodnoty */
         return '0';
     }
 

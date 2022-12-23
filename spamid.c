@@ -28,7 +28,7 @@ int merge_hashtables(word *hashtable_spam[], word *hashtable_ham[]) {
     word *item = NULL;          /* aktualne vybrane slovo z hash tabulky */
     word *found = NULL;         /* hamove slovo nalezene ve spamove hash tabulce */
 
-    if(!hashtable_spam || !hashtable_ham) {     /* hash tabulky maji hodnotu NULL */
+    if(!hashtable_spam || !hashtable_ham) {     /* pointery maji hodnotu NULL */
         return 0;
     }
 
@@ -87,7 +87,7 @@ int compute_probabilities(word *hashtable[], int dictionary_size, int word_count
     word *item = NULL;  /* prave vybrane slovo */
 
     if(!hashtable || dictionary_size <= 0 || word_count_spam <= 0 || word_count_ham <= 0) {
-        /* hashtabulka ma hodnotu NULL, nebo ciselne argumenty maji nesmyslne hodnoty */
+        /* pointer ma hodnotu NULL, nebo ciselne argumenty maji nesmyslne hodnoty */
         return 0;
     }
 
@@ -208,8 +208,6 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    print_hashtable(hashtable_spam);
-
     results = malloc(sizeof(char) * test_count);
 
     /*
@@ -226,7 +224,11 @@ int main(int argc, char *argv[]) {
     free_hashtable(hashtable_spam);
 
     /* vysledky ulozeny do textoveho souboru */
-    print_results_to_file(results, test_count, test_file_name_pattern, output_file_name);
+    if(!print_results_to_file(results, test_count, test_file_name_pattern, output_file_name)) {
+        print_err_save_results();
+        return EXIT_FAILURE;
+    }
+
     free(results);
     results = NULL;
 

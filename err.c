@@ -44,3 +44,7 @@ void print_err_init_hashtable() {
 void print_err_load_strings_hashtable() {
     printf("Error while loading strings from file to hashtable! (function load_strings_to_hashtable() in trainfile_loader.c)\n");
 }
+
+void print_err_save_results() {
+    printf("Error while saving results to file! (function print_results_to_file() in output.c)\n");
+}

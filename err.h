@@ -10,5 +10,6 @@ void print_err_probabilities();
 void print_err_classify();
 void print_err_init_hashtable();
 void print_err_load_strings_hashtable();
+void print_err_save_results();
 
 #endif

@@ -46,6 +46,7 @@ void print_hashtable(word *hashtable[]);
 /*
  * ------------------------------------------------------------------------------------
  * Nainicializuje hash tabulku na jeji danou velikost HASHTABLE_SIZE, danou konstantou.
+ * Na vsech indexech v tabulce se bude nachazet hodnota NULL.
  * V pripade uspechu vraci 1, jinak 0.
  * ------------------------------------------------------------------------------------
  */

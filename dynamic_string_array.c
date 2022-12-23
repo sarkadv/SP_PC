@@ -35,6 +35,10 @@ int init_array(dynamic_string_array *a) {
 int add_to_array(dynamic_string_array *a, char *string) {
     char (*tmp)[MAX_STRING_LENGTH];     /* pointer na novy alokovany blok pameti */
 
+    if(!a || !string) {     /* pointery maji hodnotu NULL */
+        return 0;
+    }
+
     if(a->size == a->used) {    /* dynamicke pole je plne, zvetsi se o konstantu INIT_ARRAY_SIZE */
         tmp = realloc(a->array,(a->size + INIT_ARRAY_SIZE) * sizeof(char[MAX_STRING_LENGTH]));
 
@@ -72,6 +76,10 @@ void free_array(dynamic_string_array *a) {
  */
 void print_array(dynamic_string_array *a) {
     int i;
+
+    if(!a) {
+        return;
+    }
 
     for(i = 0; i < a->used; i++) {
         printf("%s\n", a->array[i]);

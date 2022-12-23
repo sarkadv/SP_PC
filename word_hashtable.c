@@ -13,6 +13,12 @@
  */
 int hash_code(char *string) {
     int length;   /* delka textoveho retezce */
+    int code = 0;       /* vypocitany hash */
+    int i;
+
+    if(!string) {      /* pointer na NULL */
+        return -1;
+    }
 
     if(strlen(string) > (unsigned int)INT_MAX) {    /* delku neni mozne reprezentovat jako int */
         return -1;
@@ -20,9 +26,6 @@ int hash_code(char *string) {
     else {
         length = (int)strlen(string);
     }
-
-    int code = 0;       /* vypocitany hash */
-    int i;
 
     for(i = length - 1; i >= 0; i--) {
         code += ((int)(string[i] * pow(31, (i + 1))) % HASHTABLE_SIZE);
@@ -122,6 +125,7 @@ word* find_by_key(word *hashtable[], char *key) {
 /*
  * ------------------------------------------------------------------------------------
  * Nainicializuje hash tabulku na jeji danou velikost HASHTABLE_SIZE, danou konstantou.
+ * Na vsech indexech v tabulce se bude nachazet hodnota NULL.
  * V pripade uspechu vraci 1, jinak 0.
  * ------------------------------------------------------------------------------------
  */
