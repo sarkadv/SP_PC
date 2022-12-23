@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "testfile_loader.h"
 #include "dynamic_string_array.h"
 
@@ -12,14 +13,24 @@
  */
 int load_strings_to_array(dynamic_string_array *array, char *file_name) {
     FILE *f_p = NULL;       /* pointer na soubor */
-    char c;             /* posledni nacteny znak */
+    int c;             /* posledni nacteny znak */
     int char_count = 0;     /* pocet nactenych znaku v poslednim retezci */
-    char *string = malloc(MAX_STRING_LENGTH);       /* posledni nacteny retezec */
+    char *string = NULL;       /* posledni nacteny retezec */
 
+    if(!array || !file_name) {
+        return 0;
+    }
+
+    string = malloc(MAX_STRING_LENGTH);
+    if(!string) {   /* nepodarilo se alokovat pamet */
+        return 0;
+    }
+
+    errno = 0;      /* vynulovani globalni promenne errno */
     f_p = fopen(file_name, "r");
 
     if(!f_p) {      /* soubor se nepodarilo otevrit */
-        printf("The file %s couldn't be opened.\n", file_name);
+        printf("Error while opening file: %s\n", strerror(errno));
         return 0;
     }
     else {
@@ -30,7 +41,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
                 break;
             }
 
-            if(c == ' ') {      /* ukonceni slova */
+            if((char)c == ' ') {      /* ukonceni slova */
                 string[char_count] = '\0';
                 if(!add_to_array(array, string)) {       /* pridame cele slovo do dynamickeho pole */
                     return 0;             /* slovo se nepodarilo pridat */
@@ -48,14 +59,19 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
                 char_count = 0;
             }
             else {      /* jeste jsme nedosli na konec slova */
-                string[char_count] = c;     /* ulozime nacteny znak */
+                string[char_count] = (char)c;     /* ulozime nacteny znak */
                 char_count++;
             }
         }
     }
 
     /* uzavreni souboru */
+    errno = 0;
     fclose(f_p);
+    if(errno) {     /* globalni promenna errno neni nulova - doslo k chybe */
+        printf("Error while closing file: %s\n", strerror(errno));
+        return 0;
+    }
 
     return 1;
 }
