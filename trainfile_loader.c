@@ -47,13 +47,13 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
 
     for(i = 1; i <= file_count; i++) {
         /* vytvoreni nazvu trenovaciho souboru */
-        sprintf(file_name, "%s%s%s%d%s", "train", separator, file_name_pattern, i, ".txt");
+        sprintf(file_name, "%s%s%s%d%s", "data", separator, file_name_pattern, i, ".txt");
 
         errno = 0;      /* vynulovani globalni promenne errno */
         f_p = fopen(file_name, "r");
 
         if(!f_p) {      /* soubor se nepodarilo otevrit */
-            printf("Error while opening file: %s\n", strerror(errno));
+            printf("Error while opening file %s: %s\n", file_name, strerror(errno));
             return 0;
         }
         else {
@@ -61,7 +61,7 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
                 c = fgetc(f_p);     /* nacteni dalsiho znaku */
 
                 if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
-                    printf("Error while reading file: %d\n", ferror(f_p));
+                    printf("Error while reading file %s: %d\n", file_name, ferror(f_p));
                     clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
                     return 0;
                 }
@@ -106,7 +106,7 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
     errno = 0;
     fclose(f_p);
     if(errno) {     /* globalni promenna errno neni nulova - doslo k chybe */
-        printf("Error while closing file: %s\n", strerror(errno));
+        printf("Error while closing file %s: %s\n", file_name, strerror(errno));
         return 0;
     }
 

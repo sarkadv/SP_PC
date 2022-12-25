@@ -1,6 +1,4 @@
 #include <stdlib.h>
-#include <time.h>
-#include <stdio.h>
 #include "err.h"
 #include "trainfile_loader.h"
 #include "word_hashtable.h"
@@ -116,10 +114,6 @@ int compute_probabilities(word *hashtable[], int dictionary_size, int word_count
  * ------------------------------------------------------------------------------------
  */
 int main(int argc, char *argv[]) {
-    /*
-     * clock_t t1, t2;
-     * t1 = clock();
-     */
 
     char *spam_train_file_name_pattern = NULL;      /* vzor pro nazev souboru s trenovacimi spamovymi emaily */
     char *ham_train_file_name_pattern = NULL;       /* vzor pro nazev souboru s trenovacimi hamovymi emaily */
@@ -176,6 +170,7 @@ int main(int argc, char *argv[]) {
 
     if(!load_strings_to_hashtable(hashtable_spam, spam_train_file_name_pattern, spam_count, &word_count_spam)) {
         print_err_load_strings_hashtable();
+        free_hashtable(hashtable_spam);
         return EXIT_FAILURE;
     }
 
@@ -186,6 +181,8 @@ int main(int argc, char *argv[]) {
     }
     if(!load_strings_to_hashtable(hashtable_ham, ham_train_file_name_pattern, ham_count, &word_count_ham)) {
         print_err_load_strings_hashtable();
+        free_hashtable(hashtable_spam);
+        free_hashtable(hashtable_ham);
         return EXIT_FAILURE;
     }
 
@@ -197,6 +194,8 @@ int main(int argc, char *argv[]) {
 
     if(!dictionary_size) {
         print_err_dictionary();
+        free_hashtable(hashtable_spam);
+        free_hashtable(hashtable_ham);
         return EXIT_FAILURE;
     }
 
@@ -205,6 +204,7 @@ int main(int argc, char *argv[]) {
     /* vypocet pravdepodobnosti, zda se jedna o spam / ham pro kazde slovo ve slovniku */
     if(!compute_probabilities(hashtable_spam, dictionary_size, word_count_spam, word_count_ham)) {
         print_err_probabilities();
+        free_hashtable(hashtable_spam);
         return EXIT_FAILURE;
     }
 
@@ -218,6 +218,8 @@ int main(int argc, char *argv[]) {
      */
     if(!classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count)) {
         print_err_classify();
+        free_hashtable(hashtable_spam);
+        free(results);
         return EXIT_FAILURE;
     }
 
@@ -226,16 +228,12 @@ int main(int argc, char *argv[]) {
     /* vysledky ulozeny do textoveho souboru */
     if(!print_results_to_file(results, test_count, test_file_name_pattern, output_file_name)) {
         print_err_save_results();
+        free(results);
         return EXIT_FAILURE;
     }
 
     free(results);
     results = NULL;
-
-    /*
-     * t2 = clock();
-     * printf("computation time: %f", ((double) (t2 - t1)) / CLOCKS_PER_SEC);
-     */
 
     return EXIT_SUCCESS;
 }

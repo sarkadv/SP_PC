@@ -152,7 +152,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
         }
 
         /* vytvoreni jmena konkretniho souboru */
-        sprintf(file_name, "%s%s%s%d%s", "test", separator, file_name_pattern, (i + 1), ".txt");
+        sprintf(file_name, "%s%s%s%d%s", "data", separator, file_name_pattern, (i + 1), ".txt");
 
         /* nacteni slov ze souboru do dynamickeho pole */
         if(!load_strings_to_array(array, file_name)) {

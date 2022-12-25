@@ -4,7 +4,7 @@ OBJS=spamid.o dynamic_string_array.o err.o trainfile_loader.o word_hashtable.o e
 EXE=spamid.exe
 
 $(EXE): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 .c.o:
 	$(CC) $(CFLAGS) -c $^

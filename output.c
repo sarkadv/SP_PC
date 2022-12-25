@@ -29,7 +29,7 @@ int print_results_to_file(char results[], int test_file_count, char *test_file_n
     f_p = fopen(output_file_name, "w");
 
     if(!f_p) {      /* soubor se nepodarilo vytvorit */
-        printf("Error while creating file: %s\n", strerror(errno));
+        printf("Error while creating file %s: %s\n", output_file_name, strerror(errno));
         return 0;
     }
     else {
@@ -42,7 +42,7 @@ int print_results_to_file(char results[], int test_file_count, char *test_file_n
            }
 
            if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
-               printf("Error while writing to file: %d\n", ferror(f_p));
+               printf("Error while writing to file %s: %d\n", output_file_name, ferror(f_p));
                clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
                return 0;
            }
@@ -53,7 +53,7 @@ int print_results_to_file(char results[], int test_file_count, char *test_file_n
     errno = 0;
     fclose(f_p);
     if(errno) {     /* globalni promenna errno neni nulova - doslo k chybe */
-        printf("Error while closing file: %s\n", strerror(errno));
+        printf("Error while closing file %s: %s\n", output_file_name, strerror(errno));
         return 0;
     }
 

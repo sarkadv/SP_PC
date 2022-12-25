@@ -30,7 +30,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
     f_p = fopen(file_name, "r");
 
     if(!f_p) {      /* soubor se nepodarilo otevrit */
-        printf("Error while opening file: %s\n", strerror(errno));
+        printf("Error while opening file %s: %s\n", file_name, strerror(errno));
         return 0;
     }
     else {
@@ -38,7 +38,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
             c = fgetc(f_p);     /* nacteni dalsiho znaku */
 
             if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
-                printf("Error while reading file: %d\n", ferror(f_p));
+                printf("Error while reading file %s: %d\n", file_name, ferror(f_p));
                 clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
                 return 0;
             }
@@ -78,7 +78,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
     errno = 0;
     fclose(f_p);
     if(errno) {     /* globalni promenna errno neni nulova - doslo k chybe */
-        printf("Error while closing file: %s\n", strerror(errno));
+        printf("Error while closing file %s: %s\n", file_name, strerror(errno));
         return 0;
     }
 
