@@ -20,7 +20,6 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
     int c;       /* posledni nacteny znak */
     int char_count = 0;         /* pocet nactenych znaku v poslednim retezci */
     char *string = NULL;   /* posledni nacteny retezec */
-    word *hashtable_one_file[HASHTABLE_SIZE];      /* hash tabulka pro jeden trenovaci soubor */
     char *separator = NULL;     /* oddelovac v ceste k souboru */
 
     if(!hashtable_all_files || !file_name_pattern || file_count <= 0 || !word_count) {
@@ -50,10 +49,6 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
         /* vytvoreni nazvu trenovaciho souboru */
         sprintf(file_name, "%s%s%s%d%s", "train", separator, file_name_pattern, i, ".txt");
 
-        if(!init_hashtable(hashtable_one_file)) {   /* nepodarilo se nainicializovat hash tabulku */
-            return 0;
-        }
-
         errno = 0;      /* vynulovani globalni promenne errno */
         f_p = fopen(file_name, "r");
 
@@ -79,18 +74,13 @@ int load_strings_to_hashtable(word *hashtable_all_files[], char *file_name_patte
                     string[char_count] = '\0';
                     (*word_count)++;
 
-                    if(!find_by_key(hashtable_one_file, string)) {   /* slovo se v tomto souboru jeste nevyskytlo */
-                        /* do hash tabulky pro tento soubor pridame aktualni slovo */
-                        if(!insert_string_to_hashtable(hashtable_one_file, string)) {
-                            /* nepovedlo se vlozit slovo */
-                            return 0;
-                        }
-
-                        /* do hash tabulky pro vsechny soubory pridame aktualni slovo */
-                        if(!insert_string_to_hashtable(hashtable_all_files, string)) {
-                            /* nepovedlo se vlozit slovo */
-                            return 0;
-                        }
+                    /*
+                     * do hash tabulky pro vsechny soubory pridame aktualni slovo
+                     * pokud uz v ni slovo je, pouze se zvetsi jeho count
+                     */
+                    if(!insert_string_to_hashtable(hashtable_all_files, string)) {
+                        /* nepovedlo se vlozit slovo */
+                        return 0;
                     }
 
                     /* zacneme nacitat dalsi slovo - reset promennych */

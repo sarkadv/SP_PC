@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 #include "err.h"
 #include "trainfile_loader.h"
 #include "word_hashtable.h"
@@ -114,6 +116,9 @@ int compute_probabilities(word *hashtable[], int dictionary_size, int word_count
  * ------------------------------------------------------------------------------------
  */
 int main(int argc, char *argv[]) {
+    clock_t t1, t2;
+    t1 = clock();
+
     char *spam_train_file_name_pattern = NULL;      /* vzor pro nazev souboru s trenovacimi spamovymi emaily */
     char *ham_train_file_name_pattern = NULL;       /* vzor pro nazev souboru s trenovacimi hamovymi emaily */
     char *test_file_name_pattern = NULL;       /* vzor pro nazev souboru s testovacimi neklasifikovanymi emaily */
@@ -231,6 +236,9 @@ int main(int argc, char *argv[]) {
 
     free(results);
     results = NULL;
+
+    t2 = clock();
+    printf("computation time: %f", ((double) (t2 - t1)) / CLOCKS_PER_SEC);
 
     return EXIT_SUCCESS;
 }

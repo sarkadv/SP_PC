@@ -11,11 +11,11 @@
  */
 typedef struct item {
     char *string;   /* klic */
-    int count;          /* v kolika spamovych / hamovych souborech se slovo vyskytlo (podle zrovna nacitaneho souboru) */
-    int spam_count;      /* v kolika spamovych souborech se slovo vyskytlo */
-    int ham_count;      /* v kolika hamovych souborech se slovo vyskytlo */
-    double spam_probability;    /* pravdepodobnost, ze slovo je spam */
-    double ham_probability;     /* pravdepodobnost, ze slovo je ham */
+    int count;          /* kolikrat se slovo vyskytlo ve spamovych / hamovych souborech (podle zrovna nacitaneho souboru) */
+    int spam_count;      /* kolikrat se slovo vyskytlo ve spamovych souborech */
+    int ham_count;      /* kolikrat se slovo vyskytlo v hamovych souborech */
+    double spam_probability;    /* pravdepodobnost, ze se slovo vyskytne v textu, jestlize je text spam */
+    double ham_probability;     /* ravdepodobnost, ze se slovo vyskytne v textu, jestlize je text ham */
     struct item *next;  /* ukazatel na dalsi slovo ve zretezenem seznamu */
 } word;
 
