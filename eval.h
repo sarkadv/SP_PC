@@ -13,6 +13,6 @@
  * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-int classify_test_files(word *dictionary[], char results[], char *file_name_pattern, int file_count, double spam_file_probability, double ham_file_probability);
+int classify_test_files(word *dictionary[], char results[], char *file_name_pattern, int file_count);
 
 #endif

@@ -116,8 +116,10 @@ int compute_probabilities(word *hashtable[], int dictionary_size, int word_count
  * ------------------------------------------------------------------------------------
  */
 int main(int argc, char *argv[]) {
-    clock_t t1, t2;
-    t1 = clock();
+    /*
+     * clock_t t1, t2;
+     * t1 = clock();
+     */
 
     char *spam_train_file_name_pattern = NULL;      /* vzor pro nazev souboru s trenovacimi spamovymi emaily */
     char *ham_train_file_name_pattern = NULL;       /* vzor pro nazev souboru s trenovacimi hamovymi emaily */
@@ -131,9 +133,6 @@ int main(int argc, char *argv[]) {
     int dictionary_size;    /* pocet polozek vysledneho slovniku */
     int word_count_spam = 0;         /* celkovy pocet (i duplicitnich) slov ve spamovych trenovacich souborech */
     int word_count_ham = 0;         /* celkovy pocet (i duplicitnich) slov v hamovych trenovacich souborech */
-
-    double spam_file_probability;   /* pravdepodobnost spamoveho souboru podle trenovacich souboru */
-    double ham_file_probability;    /* pravdepodobnost hamoveho souboru podle trenovacich souboru */
 
     word *hashtable_spam[HASHTABLE_SIZE];      /* hash tabulka pro slova z trenovaciho spamoveho souboru */
     word *hashtable_ham[HASHTABLE_SIZE];       /* hash tabulka pro slova z trenovaciho hamoveho souboru */
@@ -158,10 +157,6 @@ int main(int argc, char *argv[]) {
         print_err_ham_count();
         return EXIT_FAILURE;
     }
-
-    /* vypocet pravdepodobnosti typu souboru podle poctu trenovacich souboru */
-    spam_file_probability = (double)spam_count / (spam_count + ham_count);
-    ham_file_probability = (double)ham_count / (spam_count + ham_count);
 
     test_file_name_pattern = argv[ARG_TEST_PATTERN];
 
@@ -221,7 +216,7 @@ int main(int argc, char *argv[]) {
      * (v pripade neuspechu klasifikace ma soubor prirazen znak '0', to je zohledneno pri
      * ukladani vysledku do souboru, vykonovani programu to neukonci)
      */
-    if(!classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count, spam_file_probability, ham_file_probability)) {
+    if(!classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count)) {
         print_err_classify();
         return EXIT_FAILURE;
     }
@@ -237,8 +232,10 @@ int main(int argc, char *argv[]) {
     free(results);
     results = NULL;
 
-    t2 = clock();
-    printf("computation time: %f", ((double) (t2 - t1)) / CLOCKS_PER_SEC);
+    /*
+     * t2 = clock();
+     * printf("computation time: %f", ((double) (t2 - t1)) / CLOCKS_PER_SEC);
+     */
 
     return EXIT_SUCCESS;
 }

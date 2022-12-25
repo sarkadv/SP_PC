@@ -49,12 +49,12 @@ int find_dictionary_words(word *dictionary[], dynamic_string_array *array, word 
  * V pripade neuspechu je vraceno '0'.
  * ------------------------------------------------------------------------------------
  */
-char argmax(word *found_words[], int found_words_count, double spam_file_probability, double ham_file_probability) {
+char argmax(word *found_words[], int found_words_count) {
     double spam_result = 0;     /* suma pravdepodobnosti spamu */
     double ham_result = 0;      /* suma pravdepodobnosti hamu */
     int i;
 
-    if(!found_words || found_words_count < 0 || spam_file_probability <= 0 || ham_file_probability <= 0) {
+    if(!found_words || found_words_count < 0) {
         /* pointer na NULL nebo nesmyslne ciselne hodnoty */
         return '0';
     }
@@ -75,10 +75,6 @@ char argmax(word *found_words[], int found_words_count, double spam_file_probabi
         }
     }
 
-    /* vynasobeni pravdepodobnosti vyskytu tridy v datech */
-    spam_result = spam_result * spam_file_probability;
-    ham_result = ham_result * ham_file_probability;
-
     return spam_result > ham_result ? 'S' : 'H';
 }
 
@@ -91,12 +87,12 @@ char argmax(word *found_words[], int found_words_count, double spam_file_probabi
  * Vraci 'S' (Spam) nebo 'H' (Ham) v pripade uspechu, '0' jinak.
  * ------------------------------------------------------------------------------------
  */
-char classify_test_file(word *dictionary[], dynamic_string_array *array, double spam_file_probability, double ham_file_probability) {
+char classify_test_file(word *dictionary[], dynamic_string_array *array) {
     char result;          /* pismeno tridy (H nebo S) */
     word **found_words;     /* slova testovaciho souboru, ktera jsou ve slovniku */
     int found_words_count;    /* pocet slov testovaciho souboru, ktera jsou ve slovniku */
 
-    if(!dictionary || !array || spam_file_probability <= 0 || ham_file_probability <= 0) {
+    if(!dictionary || !array) {
         return '0';
     }
 
@@ -110,7 +106,7 @@ char classify_test_file(word *dictionary[], dynamic_string_array *array, double 
     }
 
     /* zjisteni, zda je soubor spam nebo ham podle slov ve slovniku */
-    result = argmax(found_words, found_words_count, spam_file_probability, ham_file_probability);
+    result = argmax(found_words, found_words_count);
 
     free(found_words);
     found_words = NULL;
@@ -126,13 +122,13 @@ char classify_test_file(word *dictionary[], dynamic_string_array *array, double 
  * Vraci 1 (uspech) nebo 0 (neuspech).
  * ------------------------------------------------------------------------------------
  */
-int classify_test_files(word *dictionary[], char results[], char *file_name_pattern, int file_count, double spam_file_probability, double ham_file_probability) {
+int classify_test_files(word *dictionary[], char results[], char *file_name_pattern, int file_count) {
     int i;
     char file_name[TEST_FILE_NAME_LENGTH];     /* jmeno konkretniho testovaciho souboru */
     dynamic_string_array *array;    /* dynamicke pole pro slova z testovaciho souboru */
     char *separator = NULL;     /* oddelovac v ceste k souboru */
 
-    if(!dictionary || !results || !file_name_pattern || file_count <= 0 || spam_file_probability <= 0 || ham_file_probability <= 0) {
+    if(!dictionary || !results || !file_name_pattern || file_count <= 0) {
         /* pointery ukazuji na NULL nebo ciselne hodnoty jsou nesmyslne */
         return 0;
     }
@@ -164,7 +160,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
         }
 
         /* klasifikace souboru - na dany index se do pole results da znak 'S' nebo 'H' */
-        results[i] = classify_test_file(dictionary, array, spam_file_probability, ham_file_probability);
+        results[i] = classify_test_file(dictionary, array);
         /* v pripade neuspechu je ulozeno na index i '0' */
 
         free_array(array);
