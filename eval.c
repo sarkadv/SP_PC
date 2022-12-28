@@ -89,7 +89,8 @@ char argmax(word *found_words[], int found_words_count) {
  */
 char classify_test_file(word *dictionary[], dynamic_string_array *array) {
     char result;          /* pismeno tridy (H nebo S) */
-    word **found_words;     /* slova testovaciho souboru, ktera jsou ve slovniku */
+    int i;
+    word **found_words = NULL;     /* slova testovaciho souboru, ktera jsou ve slovniku */
     int found_words_count;    /* pocet slov testovaciho souboru, ktera jsou ve slovniku */
 
     if(!dictionary || !array) {
@@ -97,11 +98,19 @@ char classify_test_file(word *dictionary[], dynamic_string_array *array) {
     }
 
     found_words = malloc(array->used * sizeof(word*));
+    if(!found_words) {
+        return '0';
+    }
+
+    for(i = 0; i < array->used; i++) {
+        found_words[i] = NULL;
+    }
 
     /* nalezeni slov testovaciho souboru, ktera jsou zaroven ve slovniku */
     found_words_count = find_dictionary_words(dictionary, array, found_words);
 
     if(found_words_count < 0) {     /* funkce find_dictionary_words dostala nespravne parametry */
+        free(found_words);
         return '0';
     }
 
@@ -125,7 +134,7 @@ char classify_test_file(word *dictionary[], dynamic_string_array *array) {
 int classify_test_files(word *dictionary[], char results[], char *file_name_pattern, int file_count) {
     int i;
     char file_name[TEST_FILE_NAME_LENGTH];     /* jmeno konkretniho testovaciho souboru */
-    dynamic_string_array *array;    /* dynamicke pole pro slova z testovaciho souboru */
+    dynamic_string_array *array = NULL;    /* dynamicke pole pro slova z testovaciho souboru */
     char *separator = NULL;     /* oddelovac v ceste k souboru */
 
     if(!dictionary || !results || !file_name_pattern || file_count <= 0) {
@@ -141,13 +150,14 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
 #endif
 
     for(i = 0; i < file_count; i++) {
-        array = malloc(sizeof(dynamic_string_array*));
+        array = malloc(sizeof(dynamic_string_array));
 
         if(!array) {
             return 0;
         }
 
         if(!init_array(array)) {
+            free(array);
             return 0;
         }
 
@@ -156,6 +166,7 @@ int classify_test_files(word *dictionary[], char results[], char *file_name_patt
 
         /* nacteni slov ze souboru do dynamickeho pole */
         if(!load_strings_to_array(array, file_name)) {
+            free(array);
             return 0;   /* slova se nepodarilo nacist */
         }
 

@@ -31,6 +31,7 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
 
     if(!f_p) {      /* soubor se nepodarilo otevrit */
         printf("Error while opening file %s: %s\n", file_name, strerror(errno));
+        free(string);
         return 0;
     }
     else {
@@ -40,6 +41,8 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
             if(ferror(f_p)) {   /* pri I/O operaci s proudem stream doslo k chybe */
                 printf("Error while reading file %s: %d\n", file_name, ferror(f_p));
                 clearerr(f_p);  /* vynulovani chyby ve stavove strukture FILE */
+                free(string);
+                fclose(f_p);
                 return 0;
             }
 
@@ -50,6 +53,8 @@ int load_strings_to_array(dynamic_string_array *array, char *file_name) {
             if((char)c == ' ') {      /* ukonceni slova */
                 string[char_count] = '\0';
                 if(!add_to_array(array, string)) {       /* pridame cele slovo do dynamickeho pole */
+                    free(string);
+                    fclose(f_p);
                     return 0;             /* slovo se nepodarilo pridat */
                 }
 

@@ -1,1 +1,10 @@
 spam1.txt	S
+spam2.txt	S
+spam3.txt	S
+spam4.txt	S
+spam5.txt	S
+spam6.txt	S
+spam7.txt	S
+spam8.txt	S
+spam9.txt	S
+spam10.txt	S

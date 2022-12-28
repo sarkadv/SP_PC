@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "err.h"
 #include "trainfile_loader.h"
 #include "word_hashtable.h"
@@ -114,7 +115,6 @@ int compute_probabilities(word *hashtable[], int dictionary_size, int word_count
  * ------------------------------------------------------------------------------------
  */
 int main(int argc, char *argv[]) {
-
     char *spam_train_file_name_pattern = NULL;      /* vzor pro nazev souboru s trenovacimi spamovymi emaily */
     char *ham_train_file_name_pattern = NULL;       /* vzor pro nazev souboru s trenovacimi hamovymi emaily */
     char *test_file_name_pattern = NULL;       /* vzor pro nazev souboru s testovacimi neklasifikovanymi emaily */
@@ -130,6 +130,8 @@ int main(int argc, char *argv[]) {
 
     word *hashtable_spam[HASHTABLE_SIZE];      /* hash tabulka pro slova z trenovaciho spamoveho souboru */
     word *hashtable_ham[HASHTABLE_SIZE];       /* hash tabulka pro slova z trenovaciho hamoveho souboru */
+
+    int function_result;    /* pro ukladani navratoych hodnot nekterych funkci */
 
     if(argc < ARG_COUNT) {
         print_err_number_parameters();
@@ -163,23 +165,29 @@ int main(int argc, char *argv[]) {
     output_file_name = argv[ARG_OUTPUT];
 
     /* inicializace a naplneni spamove hash tabulky */
-    if(!init_hashtable(hashtable_spam)) {
+    function_result = init_hashtable(hashtable_spam);
+    if(!function_result) {
         print_err_init_hashtable();
         return EXIT_FAILURE;
     }
 
-    if(!load_strings_to_hashtable(hashtable_spam, spam_train_file_name_pattern, spam_count, &word_count_spam)) {
+    function_result = load_strings_to_hashtable(hashtable_spam, spam_train_file_name_pattern, spam_count, &word_count_spam);
+    if(!function_result) {
         print_err_load_strings_hashtable();
         free_hashtable(hashtable_spam);
         return EXIT_FAILURE;
     }
 
     /* inicializace a naplneni hamove hash tabulky */
-    if(!init_hashtable(hashtable_ham)) {
+    function_result = init_hashtable(hashtable_ham);
+    if(!function_result) {
         print_err_init_hashtable();
+        free_hashtable(hashtable_spam);
         return EXIT_FAILURE;
     }
-    if(!load_strings_to_hashtable(hashtable_ham, ham_train_file_name_pattern, ham_count, &word_count_ham)) {
+
+    function_result = load_strings_to_hashtable(hashtable_ham, ham_train_file_name_pattern, ham_count, &word_count_ham);
+    if(!function_result) {
         print_err_load_strings_hashtable();
         free_hashtable(hashtable_spam);
         free_hashtable(hashtable_ham);
@@ -202,7 +210,8 @@ int main(int argc, char *argv[]) {
     free_hashtable(hashtable_ham);
 
     /* vypocet pravdepodobnosti, zda se jedna o spam / ham pro kazde slovo ve slovniku */
-    if(!compute_probabilities(hashtable_spam, dictionary_size, word_count_spam, word_count_ham)) {
+    function_result = compute_probabilities(hashtable_spam, dictionary_size, word_count_spam, word_count_ham);
+    if(!function_result) {
         print_err_probabilities();
         free_hashtable(hashtable_spam);
         return EXIT_FAILURE;
@@ -216,7 +225,8 @@ int main(int argc, char *argv[]) {
      * (v pripade neuspechu klasifikace ma soubor prirazen znak '0', to je zohledneno pri
      * ukladani vysledku do souboru, vykonovani programu to neukonci)
      */
-    if(!classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count)) {
+    function_result = classify_test_files(hashtable_spam, results, test_file_name_pattern, test_count);
+    if(!function_result) {
         print_err_classify();
         free_hashtable(hashtable_spam);
         free(results);
@@ -226,7 +236,8 @@ int main(int argc, char *argv[]) {
     free_hashtable(hashtable_spam);
 
     /* vysledky ulozeny do textoveho souboru */
-    if(!print_results_to_file(results, test_count, test_file_name_pattern, output_file_name)) {
+    function_result = print_results_to_file(results, test_count, test_file_name_pattern, output_file_name);
+    if(!function_result) {
         print_err_save_results();
         free(results);
         return EXIT_FAILURE;

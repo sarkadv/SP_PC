@@ -14,14 +14,15 @@ int init_array(dynamic_string_array *a) {
         return 0;
     }
 
-    a->array = malloc(INIT_ARRAY_SIZE * sizeof(char[MAX_STRING_LENGTH]));
+    a->size = INIT_ARRAY_SIZE;
+    a->used = 0;
+    a->array = NULL;
+
+    a->array = calloc(INIT_ARRAY_SIZE, sizeof(char*));
 
     if(!a->array) {     /* nepodarilo se alokovat pamet */
         return 0;
     }
-
-    a->size = INIT_ARRAY_SIZE;
-    a->used = 0;
 
     return 1;
 }
@@ -33,16 +34,23 @@ int init_array(dynamic_string_array *a) {
  * ------------------------------------------------------------------------------------
  */
 int add_to_array(dynamic_string_array *a, char *string) {
-    char (*tmp)[MAX_STRING_LENGTH];     /* pointer na novy alokovany blok pameti */
+    char **tmp = NULL;     /* pointer na novy alokovany blok pameti */
+    char *string_trimmed = NULL;     /* oriznute slovo */
 
     if(!a || !string) {     /* pointery maji hodnotu NULL */
         return 0;
     }
 
+    string_trimmed = calloc(MAX_STRING_LENGTH, sizeof(char));
+    if(!string_trimmed) {
+        return 0;
+    }
+
     if(a->size == a->used) {    /* dynamicke pole je plne, zvetsi se o konstantu INIT_ARRAY_SIZE */
-        tmp = realloc(a->array,(a->size + INIT_ARRAY_SIZE) * sizeof(char[MAX_STRING_LENGTH]));
+        tmp = realloc(a->array,(a->size + INIT_ARRAY_SIZE) * sizeof(char*));
 
         if(!tmp) {      /* nepodarilo se realokovat pamet */
+            free(string_trimmed);
             return 0;
         }
         else {   /* tmp neni NULL - podarilo se realokovat pamet */
@@ -51,8 +59,22 @@ int add_to_array(dynamic_string_array *a, char *string) {
         }
     }
 
-    strcpy(a->array[a->used], string);  /* pridani retezce do dynamickeho pole */
+    /* alokace pameti pro novy string */
+    a->array[a->used] = NULL;
+    a->array[a->used] = calloc(MAX_STRING_LENGTH, sizeof(char));
+
+    if(!a->array[a->used]) {
+        free(string_trimmed);
+        return 0;
+    }
+
+    strncpy(string_trimmed, string, MAX_STRING_LENGTH - 2);     /* oriznuti prilis dlouheho retezce */
+    string_trimmed[MAX_STRING_LENGTH - 1] = '\0';
+
+    strcpy(a->array[a->used], string_trimmed);  /* pridani retezce do dynamickeho pole */
     a->used++;
+
+    free(string_trimmed);
 
     return 1;
 }
@@ -63,7 +85,13 @@ int add_to_array(dynamic_string_array *a, char *string) {
  * ------------------------------------------------------------------------------------
  */
 void free_array(dynamic_string_array *a) {
+    int i;
+
     if(a) {     /* pointer neni NULL */
+        for(i = 0; i < a->used; i++) {
+            free(a->array[i]);
+        }
+
         free(a->array);
         free(a);
     }

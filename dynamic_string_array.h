@@ -10,7 +10,7 @@
  * ------------------------------------------------------------------------------------
  */
 typedef struct {
-    char (*array)[MAX_STRING_LENGTH];       /* pole textovych retezcu */
+    char **array;       /* pole textovych retezcu */
     int size;   /* kapacita pole */
     int used;   /* pocet retezcu v poli */
 } dynamic_string_array;

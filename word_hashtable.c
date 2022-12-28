@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <limits.h>
 #include "word_hashtable.h"
 
 /*
@@ -13,26 +12,26 @@
  */
 int hash_code(char *string) {
     int length;   /* delka textoveho retezce */
-    int code = 0;       /* vypocitany hash */
+    unsigned long code = 0;       /* vypocitany hash */
     int i;
+    char string_trimmed[MAX_STRING_LENGTH];     /* oriznute slovo */
 
     if(!string) {      /* pointer na NULL */
         return -1;
     }
 
-    if(strlen(string) > (unsigned int)INT_MAX) {    /* delku neni mozne reprezentovat jako int */
-        return -1;
-    }
-    else {
-        length = (int)strlen(string);
-    }
+    strncpy(string_trimmed, string, MAX_STRING_LENGTH - 1);     /* oriznuti prilis dlouheho retezce */
+    string_trimmed[MAX_STRING_LENGTH - 1] = '\0';
+
+    length = (int)strlen(string_trimmed);   /* delka je maximalne MAX_STRING_LENGTH */
 
     for(i = length - 1; i >= 0; i--) {
-        code += ((int)(string[i] * pow(31, (i + 1))) % HASHTABLE_SIZE);
+        code += ((unsigned long)(string_trimmed[i] * pow(31, (i + 1))) % HASHTABLE_SIZE);
     }
 
     code = code % HASHTABLE_SIZE;
-    return code;
+
+    return (int)code;   /* code je maximalne HASTABLE_SIZE */
 }
 
 /*
@@ -45,13 +44,17 @@ int hash_code(char *string) {
 word* insert_string_to_hashtable(word *hashtable[], char *string) {
     word *item = NULL;  /* nalezene slovo v hash tabulce, je NULL pokud v tabulce dane slovo jeste neni */
     int hash_index;     /* vypocitany hash pro nove slovo */
+    char string_trimmed[MAX_STRING_LENGTH];     /* oriznute slovo */
 
     if(!hashtable || !string) {
         return NULL;
     }
 
+    strncpy(string_trimmed, string, MAX_STRING_LENGTH - 1);     /* oriznuti prilis dlouheho retezce */
+    string_trimmed[MAX_STRING_LENGTH - 1] = '\0';
+
     /* zjistime, zda slovo uz v hash tabulce je */
-    item = find_by_key(hashtable, string);
+    item = find_by_key(hashtable, string_trimmed);
 
     if(item) {    /* jestlize slovo uz v tabulce je (item neni NULL), nevlozi se znovu */
         item->count++;
@@ -67,16 +70,22 @@ word* insert_string_to_hashtable(word *hashtable[], char *string) {
 
         if(!item->string) {     /* nepodarilo se alokovat pamet pro cast struktury */
             free(item);
-            item = NULL;
             return NULL;
         }
 
-        strcpy(item->string, string);
+        strcpy(item->string, string_trimmed);
         item->count = 1;
+        item->next = NULL;
+        item->spam_probability = 0;
+        item->ham_probability = 0;
+        item->spam_count = 0;
+        item->ham_count = 0;
 
-        hash_index = hash_code(string);
+        hash_index = hash_code(string_trimmed);
 
-        if(hash_index == -1) {      /* nepodarilo se vypocitat hash */
+        if(hash_index < 0) {      /* nepodarilo se vypocitat hash */
+            free(item->string);
+            free(item);
             return NULL;
         }
 
@@ -103,7 +112,7 @@ word* insert_string_to_hashtable(word *hashtable[], char *string) {
  */
 word* find_by_key(word *hashtable[], char *key) {
     int index;     /* hash pro dany klic */
-    word *item;      /* slovo na indexu danem hash kodem */
+    word *item = NULL;      /* slovo na indexu danem hash kodem */
 
     if(!hashtable || !key) {
         return NULL;
