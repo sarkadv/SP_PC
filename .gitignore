@@ -1,0 +1,5 @@
+# Build output
+*.o
+*.exe
+spamid
+cmake-build-*/
